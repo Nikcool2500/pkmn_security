@@ -31,7 +31,7 @@ public class SecurityConfig {
                                 "/api/v1/cards/**",
                                 "/api/v1/students/**",
                                 "/api/v1/cards/card/image")
-                        .hasAnyRole("ADMIN","USER")
+                        .permitAll()
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/v1/cards",
@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .hasRole("ADMIN")
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/auth/**").authenticated()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
         );
         http.formLogin(form -> form.successForwardUrl("/auth/success"));
         http.csrf(AbstractHttpConfigurer::disable);
