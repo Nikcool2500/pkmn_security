@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .hasRole("ADMIN")
                         .requestMatchers("/auth/login", "/auth/register").permitAll()
                         .requestMatchers("/auth/**").authenticated()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
         );
         http.formLogin(form -> form.successForwardUrl("/auth/success"));
         http.csrf(AbstractHttpConfigurer::disable);
@@ -48,7 +48,4 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
-
 }
-
